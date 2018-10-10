@@ -9,6 +9,25 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  countsByAuthor: function(req, res) {
+    db.Book
+      .aggregate([
+        {
+          $group: {
+            _id: "$author",
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $addFields: {
+            key: "$_id",
+            value: "$count"
+          }
+        }
+      ])
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   findById: function(req, res) {
     db.Book
       .findById(req.params.id)
