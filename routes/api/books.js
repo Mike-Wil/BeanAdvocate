@@ -6,11 +6,6 @@ router.route("/")
   .get(booksController.findAll)
   .post(booksController.create);
 
-// Matches with "/api/books/count-by-author"
-router
-  .route("/count-by-author")
-  .get(booksController.countsByAuthor);
-
 // Matches with "/api/books/:id"
 router
   .route("/:id")
